@@ -589,3 +589,108 @@ body {
 @media (max-width: 420px) {
   .gallery { grid-template-columns: 1fr; }
 }
+
+/* --- Page-load intro overlay (TSHUKI COLLECTOR) --- */
+:root {
+  --intro-accent: #E63946; /* change to #06A77D for green */
+  --intro-accent-glow: rgba(230,57,70,0.18);
+}
+
+#intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, rgba(10,8,18,0.95), rgba(10,8,18,0.88));
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 600ms ease 250ms, visibility 600ms ease;
+}
+
+#intro-overlay.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* inner visual */
+#intro-overlay .intro-inner {
+  text-align: center;
+  transform: translateY(-6px);
+  will-change: transform, opacity;
+}
+
+/* logo */
+.intro-logo {
+  font-family: 'Baloo 2', system-ui, sans-serif;
+  font-weight: 800;
+  color: white;
+  font-size: clamp(2rem, 6vw, 4rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-shadow:
+    0 6px 20px rgba(0,0,0,0.6),
+    0 0 18px var(--intro-accent);
+  transform-origin: center;
+  opacity: 0;
+  filter: drop-shadow(0 6px 20px var(--intro-accent-glow));
+}
+
+/* small word style */
+.intro-logo span {
+  display: block;
+  font-size: 0.5em;
+  font-weight: 700;
+  opacity: 0.95;
+  color: var(--intro-accent);
+}
+
+/* animated lines (sweep + neon) */
+.intro-lines { margin-top: 18px; height: 6px; display: flex; gap: 10px; justify-content: center; align-items: center; }
+.intro-lines .line {
+  width: 80px;
+  height: 6px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.06), var(--intro-accent));
+  border-radius: 10px;
+  transform-origin: left center;
+  opacity: 0;
+  filter: blur(0.6px) drop-shadow(0 8px 28px var(--intro-accent-glow));
+}
+
+/* staggered reveal */
+.intro-animate .intro-logo { animation: logo-in 780ms cubic-bezier(.2,.9,.2,1) forwards; }
+.intro-animate .intro-lines .line.l1 { animation: line-in 420ms ease forwards 140ms; }
+.intro-animate .intro-lines .line.l2 { animation: line-in 420ms ease forwards 260ms; width:120px; }
+.intro-animate .intro-lines .line.l3 { animation: line-in 420ms ease forwards 380ms; width:60px; }
+
+/* small neon pulse while visible */
+.intro-animate .intro-logo { animation-name: logo-in, logo-pulse; animation-duration: 780ms, 2200ms; animation-timing-function: cubic-bezier(.2,.9,.2,1), ease-in-out; animation-iteration-count: 1, infinite; animation-fill-mode: forwards, none; animation-delay: 0ms, 900ms; }
+
+/* keyframes */
+@keyframes logo-in {
+  0% { transform: translateY(10px) scale(0.98); opacity: 0; filter: blur(6px) drop-shadow(0 0 0 transparent); }
+  60% { transform: translateY(-6px) scale(1.02); opacity: 1; filter: blur(0) drop-shadow(0 10px 30px var(--intro-accent-glow)); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+@keyframes logo-pulse {
+  0% { text-shadow: 0 6px 20px rgba(0,0,0,0.6), 0 0 12px rgba(0,0,0,0); transform: scale(1); }
+  50% { text-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 32px var(--intro-accent); transform: scale(1.01); }
+  100% { text-shadow: 0 6px 20px rgba(0,0,0,0.6), 0 0 12px var(--intro-accent); transform: scale(1); }
+}
+@keyframes line-in {
+  0% { transform: scaleX(0); opacity: 0; filter: blur(1px); }
+  70% { transform: scaleX(1.06); opacity: 1; filter: blur(0); }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+
+/* optional subtle site tint while intro runs */
+body.intro-active .bg-fx, body.intro-active .site-header, body.intro-active .hero { transform: translateY(0); transition: filter 400ms ease; filter: blur(0.2px) saturate(0.98); }
+
+/* ensure overlay is removed cleanly */
+@media (prefers-reduced-motion: reduce) {
+  .intro-logo, .intro-lines .line { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
