@@ -11,6 +11,18 @@
 </head>
 <body>
 
+<!-- Intro overlay (page-load animation) -->
+<div id="intro-overlay" aria-hidden="true">
+  <div class="intro-inner">
+    <div class="intro-logo">TSHUKI<br><span>COLLECTOR</span></div>
+    <div class="intro-lines" aria-hidden="true">
+      <span class="line l1"></span>
+      <span class="line l2"></span>
+      <span class="line l3"></span>
+    </div>
+  </div>
+</div>
+
 <!-- Ambient background blobs -->
 <div class="bg-fx" aria-hidden="true">
   <div class="blob blob-a"></div>
@@ -58,6 +70,7 @@
   <p class="footer-small">Tap any case to flip · drag to tilt · figures shown for display only</p>
 </footer>
 
+<script src="intro.js"></script>
 <script src="figures-data.js"></script>
 <script src="app.js"></script>
 </body>
