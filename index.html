@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Display Case — Anime Figure Vault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ambient background blobs -->
+<div class="bg-fx" aria-hidden="true">
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="blob blob-c"></div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-mark">⛩</span>
+      <span class="brand-text">THE DISPLAY CASE</span>
+    </div>
+    <nav class="header-nav">
+      <span class="case-count"><strong id="figureCount">13</strong> figures in the cabinet</span>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">tap a case · tilt it · watch it move</p>
+    <h1 class="hero-title">
+      Every figure<br>
+      <span class="hero-title-accent">has an entrance.</span>
+    </h1>
+    <p class="hero-sub">A shelf of PVC and resin doesn't move. This one does — flip any case to trigger its signature pose, and watch Luffy and Itachi unleash their full attack sequence.</p>
+    <div class="hero-hint">
+      <svg class="hint-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      scroll to the cabinet
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<main class="gallery" id="gallery">
+  <!-- Cards injected by JS -->
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <p>Crafted for collectors who like their shelves to fight back.</p>
+  <p class="footer-small">Tap any case to flip · drag to tilt · figures shown for display only</p>
+</footer>
+
+<script src="figures-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
