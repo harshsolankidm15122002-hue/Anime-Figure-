@@ -1,0 +1,591 @@
+/* ============================================
+   THE DISPLAY CASE — Design tokens
+   Palette: deep indigo base, hot coral / electric
+   cyan / sunshine gold / violet accents pulled
+   from the actual figures (Luffy red, Itachi
+   violet-black, Zoro green, Giyu water-blue)
+   ============================================ */
+
+:root {
+  --ink: #14102B;
+  --ink-soft: #1F1A3D;
+  --paper: #FBF8FF;
+  --paper-dim: #E8E2F7;
+
+  --coral: #FF6B4A;
+  --cyan: #3AC9C9;
+  --gold: #FFD23F;
+  --violet: #8E5BFF;
+  --pink: #FF5DA2;
+
+  --display-font: 'Baloo 2', system-ui, sans-serif;
+  --body-font: 'Space Grotesk', system-ui, sans-serif;
+  --mono-font: 'JetBrains Mono', monospace;
+
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-sm: 10px;
+
+  --shadow-card: 0 20px 60px -15px rgba(20, 16, 43, 0.55);
+  --shadow-pop: 0 30px 80px -20px rgba(142, 91, 255, 0.45);
+}
+
+* { box-sizing: border-box; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--body-font);
+  overflow-x: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--violet); color: white; }
+
+/* ============== background fx ============== */
+.bg-fx {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+  mix-blend-mode: screen;
+}
+.blob-a {
+  width: 520px; height: 520px;
+  background: var(--violet);
+  top: -140px; left: -120px;
+  animation: drift-a 22s ease-in-out infinite;
+}
+.blob-b {
+  width: 460px; height: 460px;
+  background: var(--coral);
+  top: 40%; right: -160px;
+  animation: drift-b 26s ease-in-out infinite;
+}
+.blob-c {
+  width: 400px; height: 400px;
+  background: var(--cyan);
+  bottom: -120px; left: 30%;
+  animation: drift-c 19s ease-in-out infinite;
+}
+
+@keyframes drift-a {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(60px, 80px) scale(1.15); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(-70px, 40px) scale(1.1); }
+}
+@keyframes drift-c {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(40px, -60px) scale(1.2); }
+}
+
+/* ============== header ============== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(16px);
+  background: rgba(20, 16, 43, 0.72);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--display-font);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 1.05rem;
+}
+.brand-mark {
+  font-size: 1.3rem;
+  filter: drop-shadow(0 0 8px var(--coral));
+}
+.case-count {
+  font-family: var(--mono-font);
+  font-size: 0.8rem;
+  color: var(--paper-dim);
+  opacity: 0.8;
+}
+.case-count strong { color: var(--gold); }
+
+/* ============== hero ============== */
+.hero {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 96px 24px 64px;
+}
+.hero-inner { max-width: 760px; }
+.hero-eyebrow {
+  font-family: var(--mono-font);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  color: var(--cyan);
+  margin: 0 0 18px;
+}
+.hero-title {
+  font-family: var(--display-font);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 7vw, 4.6rem);
+  line-height: 1.02;
+  margin: 0 0 24px;
+  letter-spacing: -0.01em;
+}
+.hero-title-accent {
+  background: linear-gradient(100deg, var(--coral), var(--gold) 50%, var(--pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-sub {
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: var(--paper-dim);
+  max-width: 580px;
+  margin: 0 0 36px;
+}
+.hero-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono-font);
+  font-size: 0.8rem;
+  color: var(--paper-dim);
+  opacity: 0.7;
+  animation: bob 2.2s ease-in-out infinite;
+}
+.hint-icon { transform: rotate(180deg); }
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ============== gallery grid ============== */
+.gallery {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 24px 100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+  perspective: 1800px;
+}
+
+/* ============== card ============== */
+.fig-card {
+  position: relative;
+  height: 380px;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0;
+  transform: translateY(40px) scale(0.92) rotateX(8deg);
+}
+
+.fig-card.in-view {
+  animation: card-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--enter-delay, 0s);
+}
+
+@keyframes card-enter {
+  0% { opacity: 0; transform: translateY(40px) scale(0.9) rotateX(10deg); }
+  60% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
+}
+
+.fig-card .tilt-layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+}
+
+.fig-card.is-flipped .tilt-layer {
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---- card faces (front/back share flip mechanism) ---- */
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.card-front {
+  transform: rotateY(0deg) translateZ(1px);
+  background: var(--ink-soft);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.fig-card.is-flipped .card-front {
+  transform: rotateY(180deg) translateZ(1px);
+}
+
+.card-back {
+  transform: rotateY(-180deg) translateZ(1px);
+  background: var(--ink-soft);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: var(--shadow-pop);
+}
+
+.fig-card.is-flipped .card-back {
+  transform: rotateY(0deg) translateZ(1px);
+}
+
+/* glass shine sweep on hover */
+.card-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.22) 45%, transparent 60%);
+  background-size: 250% 250%;
+  background-position: 130% 130%;
+  transition: background-position 0.8s ease;
+  pointer-events: none;
+  z-index: 5;
+}
+.fig-card:hover .card-shine {
+  background-position: -30% -30%;
+}
+
+/* ---- front face contents ---- */
+.card-img-wrap {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 30%, var(--accent-glow, rgba(142,91,255,0.25)), transparent 70%);
+}
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  display: block;
+}
+.fig-card:hover .card-img-wrap img {
+  transform: scale(1.06);
+}
+
+.card-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-family: var(--mono-font);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 100px;
+  background: rgba(20,16,43,0.65);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--paper);
+  z-index: 4;
+}
+
+.card-flip-hint {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(20,16,43,0.65);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  color: var(--paper);
+  font-size: 0.85rem;
+}
+
+.card-info {
+  padding: 16px 18px 18px;
+  background: linear-gradient(180deg, var(--ink-soft), var(--ink));
+  border-top: 2px solid var(--accent, var(--violet));
+}
+.card-series {
+  font-family: var(--mono-font);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent, var(--cyan));
+  margin: 0 0 4px;
+}
+.card-name {
+  font-family: var(--display-font);
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 0;
+  line-height: 1.15;
+}
+
+/* ---- back face contents ---- */
+.card-back-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.back-stage {
+  flex: 1;
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, var(--accent-glow, rgba(142,91,255,0.3)), var(--ink) 75%);
+  margin-bottom: 14px;
+}
+.back-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+}
+.back-blurb {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--paper-dim);
+  margin: 0;
+}
+.back-name {
+  font-family: var(--display-font);
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 0 6px;
+  color: var(--accent, var(--gold));
+}
+
+/* ============== SPECIAL EFFECT: GEAR 5 (Luffy) ============== */
+.fx-gear5 .back-stage {
+  background: radial-gradient(circle at 50% 35%, rgba(255,255,255,0.4), rgba(255,210,63,0.35) 40%, var(--ink) 78%);
+}
+.fx-gear5.is-flipped .back-stage img {
+  animation: gear5-pulse 1.8s ease-in-out infinite;
+}
+@keyframes gear5-pulse {
+  0%, 100% { filter: brightness(1) saturate(1); transform: scale(1); }
+  50% { filter: brightness(1.35) saturate(0.4) drop-shadow(0 0 18px #fff); transform: scale(1.035); }
+}
+.gear5-bolt {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.9) 0%, transparent 2%),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.8) 0%, transparent 1.5%),
+    radial-gradient(circle at 60% 80%, rgba(255,255,255,0.9) 0%, transparent 2%),
+    radial-gradient(circle at 30% 70%, rgba(255,255,255,0.7) 0%, transparent 1.5%);
+}
+.fx-gear5.is-flipped .gear5-bolt {
+  animation: gear5-spark 1.8s ease-in-out infinite;
+}
+@keyframes gear5-spark {
+  0%, 100% { opacity: 0; }
+  45%, 55% { opacity: 1; }
+}
+.gear5-clouds {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse 60px 30px at 15% 25%, rgba(255,255,255,0.55), transparent 70%),
+    radial-gradient(ellipse 80px 40px at 85% 60%, rgba(255,255,255,0.45), transparent 70%),
+    radial-gradient(ellipse 50px 25px at 60% 15%, rgba(255,255,255,0.5), transparent 70%);
+  opacity: 0;
+}
+.fx-gear5.is-flipped .gear5-clouds {
+  animation: gear5-drift 3.6s ease-in-out infinite;
+}
+@keyframes gear5-drift {
+  0% { opacity: 0; transform: translate(-10px, 6px) scale(0.95); }
+  30% { opacity: 0.85; }
+  70% { opacity: 0.7; }
+  100% { opacity: 0; transform: translate(10px, -6px) scale(1.05); }
+}
+.gear5-label {
+  position: absolute;
+  bottom: 10px; left: 10px;
+  font-family: var(--display-font);
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.92);
+  color: #1a1530;
+  opacity: 0;
+  transform: translateY(8px);
+  z-index: 6;
+}
+.fx-gear5.is-flipped .gear5-label {
+  animation: gear5-label-in 1.8s ease-in-out infinite;
+}
+@keyframes gear5-label-in {
+  0%, 100% { opacity: 0; transform: translateY(8px); }
+  20%, 80% { opacity: 1; transform: translateY(0); }
+}
+
+/* ============== SPECIAL EFFECT: GENJUTSU (Itachi) ============== */
+.fx-genjutsu .back-stage {
+  background: radial-gradient(circle at 50% 40%, rgba(123,97,255,0.4), rgba(0,0,0,0.6) 70%, var(--ink));
+}
+.fx-genjutsu.is-flipped .back-stage img {
+  animation: genjutsu-warp 2.4s ease-in-out infinite;
+}
+@keyframes genjutsu-warp {
+  0%, 100% { filter: hue-rotate(0deg) saturate(1) contrast(1); transform: scale(1); }
+  50% { filter: hue-rotate(35deg) saturate(1.6) contrast(1.15); transform: scale(1.03); }
+}
+.genjutsu-ripple {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  opacity: 0;
+}
+.genjutsu-ripple span {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 20px; height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid rgba(123,97,255,0.7);
+  border-radius: 50%;
+}
+.fx-genjutsu.is-flipped .genjutsu-ripple { opacity: 1; }
+.fx-genjutsu.is-flipped .genjutsu-ripple span:nth-child(1) { animation: ripple-out 2.4s ease-out infinite; }
+.fx-genjutsu.is-flipped .genjutsu-ripple span:nth-child(2) { animation: ripple-out 2.4s ease-out infinite 0.8s; }
+.fx-genjutsu.is-flipped .genjutsu-ripple span:nth-child(3) { animation: ripple-out 2.4s ease-out infinite 1.6s; }
+@keyframes ripple-out {
+  0% { transform: scale(0.5); opacity: 0.9; border-color: rgba(255,90,90,0.8); }
+  70% { opacity: 0.4; }
+  100% { transform: scale(9); opacity: 0; border-color: rgba(123,97,255,0.3); }
+}
+.genjutsu-crows {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  font-size: 1.1rem;
+}
+.genjutsu-crows span {
+  position: absolute;
+  opacity: 0;
+  filter: drop-shadow(0 0 4px rgba(0,0,0,0.8));
+}
+.fx-genjutsu.is-flipped .genjutsu-crows { opacity: 1; }
+.fx-genjutsu.is-flipped .genjutsu-crows span:nth-child(1) { top: 70%; left: 10%; animation: crow-fly 2.4s ease-in infinite; }
+.fx-genjutsu.is-flipped .genjutsu-crows span:nth-child(2) { top: 80%; left: 50%; animation: crow-fly 2.4s ease-in infinite 0.4s; }
+.fx-genjutsu.is-flipped .genjutsu-crows span:nth-child(3) { top: 75%; left: 75%; animation: crow-fly 2.4s ease-in infinite 0.9s; }
+@keyframes crow-fly {
+  0% { opacity: 0; transform: translate(0,0) scale(0.6) rotate(0deg); }
+  15% { opacity: 1; }
+  85% { opacity: 0.8; }
+  100% { opacity: 0; transform: translate(-30px, -160px) scale(1.1) rotate(-25deg); }
+}
+.genjutsu-label {
+  position: absolute;
+  bottom: 10px; left: 10px;
+  font-family: var(--display-font);
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: rgba(20,10,40,0.9);
+  color: #C9B8FF;
+  border: 1px solid rgba(123,97,255,0.6);
+  opacity: 0;
+  z-index: 6;
+}
+.fx-genjutsu.is-flipped .genjutsu-label {
+  animation: gear5-label-in 2.4s ease-in-out infinite;
+}
+
+/* ============== footer ============== */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 50px 24px 70px;
+  color: var(--paper-dim);
+}
+.site-footer p { margin: 4px 0; font-size: 0.9rem; }
+.footer-small {
+  font-family: var(--mono-font);
+  font-size: 0.72rem;
+  opacity: 0.55;
+}
+
+/* ============== focus visibility ============== */
+.fig-card:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* ============== responsive ============== */
+@media (max-width: 640px) {
+  .header-inner { padding: 12px 16px; gap: 10px; }
+  .brand-text { font-size: 0.82rem; letter-spacing: 0.02em; }
+  .case-count { font-size: 0.68rem; }
+  .hero { padding: 64px 20px 40px; }
+  .gallery { grid-template-columns: 1fr 1fr; gap: 16px; padding: 10px 16px 70px; perspective: 1200px; }
+  .fig-card { height: 280px; }
+  .card-name { font-size: 1rem; }
+  .card-info { padding: 12px 14px 14px; }
+  .back-blurb { font-size: 0.76rem; }
+}
+
+@media (max-width: 420px) {
+  .gallery { grid-template-columns: 1fr; }
+}
